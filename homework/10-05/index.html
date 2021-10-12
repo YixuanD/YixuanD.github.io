@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="uft-8"/>
+      <title>
+          Cool Website!!!
+      </title>
+      <script src="numbers.js"></script>
+
+    </head>
+    <body>
+        
+        <h1 id="name">Coffee shop</h1>
+        <script>
+            var myNumber = 42;
+
+            myNumber = myNumber + 10;
+
+            console.log(myNumber);
+
+            var myString = "JavaScript is Cool!";
+
+            console.log("D3 and " + myString);
+
+            var myArray = ["one", "two", "three", "four"];
+
+            // Any line starting with double slashes is a comment
+            // that will not be interpreted by the browser.
+
+            // This should print out "two"
+            console.log(myArray[1]);
+
+            var myObject = {
+                name: "Irene",
+                color: "red"
+            };
+
+            console.log(myObject.name);
+
+            var sayHello = function() {
+                console.log("Hello!");
+            }
+
+            sayHello();
+
+            var sayText = function(txt) {
+            console.log(txt);
+  }
+
+            console.log(sayText("Goodbye"));
+
+            var plusTen = function(num) {
+                return num + 10;
+            }
+
+            var thirty = plusTen(20);
+
+            console.log(thirty);
+
+            var myNumber = 12;
+
+            if (myNumber > 10) {
+                console.log("greater than 10!");
+            }
+            else {
+                console.log("less than 10!");
+            }
+
+            function greaterThanTen(num) {
+
+            if (num > 10) {
+            console.log("greater than 10!");
+            }
+            else {
+            console.log("less than 10!");
+            }
+
+            return num > 10;
+
+            }
+
+            // this should return true
+            console.log(greaterThanTen(20));
+
+            document.getElementById("name").innerHTML = "Irene";
+
+            console.log(numbers.square(4));
+
+        </script>
+            
+    </body>
+</html>
