@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        .funkyText{
+            font-family: 'Rock Salt', cursive;
+            font-size: 40px;
+            font-style: italic;
+            font-weight: bold;
+            text-align: center;
+            
+        }
+
+    </style>
+  </head>
+  <body>
+
+    <h1 id="title">My Color Moodboard</h1>
+
+    <svg id="rect-viz" height = "300px", width = "1000px">
+    </svg>
+        
+    <div id = "button" style="text-align: center;">
+    <button onclick="drawRects(mon1)">Monday</button>
+    <button onclick="drawRects(tue2)">Tuesday</button>
+    <button onclick="drawRects(wed3)">Wednesday</button>
+    <button onclick="drawRects(thur4)">Thursday</button>
+    <button onclick="drawRects(fir5)">Firday</button>
+    <button onclick="drawRects(sat6)">Saturday</button>
+    <button onclick="drawRects(sun7)">Sunday</button>
+    </div>
+
+
+        <script>
+            
+            var title = d3.select("#title");
+
+
+            title
+                .style("color", "#778cd1")
+                .attr("class", "funkyText");
+
+
+            var mon1 = [
+                {
+                    palette:"windsurfer",
+                    value: 12412341
+                },
+                {
+                    palette: "robbia",
+                    value: 32412341
+                },
+                {
+                    palette: "marina",
+                    value: 23414321
+                },
+
+                {
+                    palette: "directoire",
+                    value: 43213124
+                },
+                {
+                    palette: "tureblue",
+                    value: 14324132
+                },
+            ];
+
+            var tue2 = [
+                {
+                    palette: "goldenmist",
+                    value: 543264321
+                },
+                {
+                    palette: "moonstone",
+                    value: 261234534
+                },
+
+                {
+                    palette: "pale",
+                    value: 623415363
+                },
+
+                {
+                    palette: "dachshund",
+                    value: 746252614
+                },
+
+                {
+                    palette: "demitasse",
+                    value: 716364724
+                }
+                
+            ];
+
+            var wed3 = [
+                {
+                    palette: "impala",
+                    value: 847247382
+                },
+                {
+                    palette: "sunshine",
+                    value: 737184712
+                },
+
+                {
+                    palette: "yarrow",
+                    value: 637287391
+                },
+                {
+                    palette: "mimosa",
+                    value: 274628472
+                },
+                {
+                    palette: "amber",
+                    value: 472847295
+                }
+            ];
+
+            var thur4 = [
+                {
+                    palette: "daiquiri",
+                    value: 839582052
+                },
+                {
+                    palette: "chartreuse",
+                    value: 137247492
+                },
+                {
+                    palette: "titanite",
+                    value: 824258295
+                },
+                {
+                    palette: "lime",
+                    value: 274829593
+                },
+                {
+                    palette: "tea",
+                    value: 742853241
+                }
+
+            
+            ];
+
+            var fir5 = [
+                {
+                    palette: "spring",
+                    value: 748295822
+                },
+                {
+                    palette: "irish",
+                    value: 848174191
+                },
+                {
+                    palette: "biscay",
+                    value: 183194732
+                },
+                {
+                    palette: "holly",
+                    value: 452681492
+                },
+                {
+                    palette: "bosphorus",
+                    value: 381957194
+                }
+            ];
+
+            var sat6 = [
+            {
+                    palette: "coral",
+                    value: 174729413
+                },
+                {
+                    palette: "emberglow",
+                    value: 274819482
+                },
+                {
+                    palette: "cayenne",
+                    value: 471941394
+                },
+                {
+                    palette: "peach",
+                    value: 738184721
+                },
+                {
+                    palette: "hibiacus",
+                    value: 637829141
+                }
+            ];
+
+            var sun7 = [
+            {
+                    palette: "vanila",
+                    value: 758294821
+                },
+                {
+                    palette: "sunkiss",
+                    value: 365714826
+                },
+                {
+                    palette: "fleece",
+                    value: 184829525
+                },
+                {
+                    palette: "jojoba",
+                    value: 937184719
+                },
+                {
+                    palette: "desert",
+                    value: 274719483
+                }
+            ];
+
+
+
+            function drawRects(dataArray){
+
+                function rectPosition() {
+                    return Math. random() * 600 + 300;
+                }
+
+                var rects = d3.select("#rect-viz").selectAll("rect")
+                    .data(dataArray, function(d){
+                        return d.palette;
+                    });
+                    
+                    //Entering Rectangle
+                    rects.enter().append("rect")
+                        .attr("fill", function(d){
+                        if(d.palette == "windsurfer") {
+                            return "#a3bbe0";
+                        }
+                        else if (d.palette == "robbia") {
+                            return "#7a9dcb";
+                        }
+
+                        else if (d.palette == "marina") {
+                            return "#5085c3";
+                        }
+
+                        else if (d.palette == "directoire") {
+                            return "#0061a3";
+                        }
+
+                        else if (d.palette == "tureblue") {
+                            return "#1f4477";
+                        }
+
+                        else if (d.palette == "goldenmist") {
+                            return "#d5cd94";
+                        }
+
+                        else if (d.palette == "moonstone") {
+                            return "#ccb584";
+                        }
+
+                        else if (d.palette == "pale") {
+                            return "#bd9865";
+                        }
+
+                        else if (d.palette == "dachshund") {
+                            return "#704f37";
+                        }
+
+                        else if (d.palette == "demitasse") {
+                            return "#40332b";
+                        }
+
+                        else if (d.palette == "impala") {
+                            return "#f8ce97";
+                        }
+
+                        else if (d.palette == "sunshine") {
+                            return "#fade85";
+                        }
+
+                        else if (d.palette == "yarrow") {
+                            return "#face6d";
+                        }
+
+                        else if (d.palette == "mimosa") {
+                            return "#f0c05a";
+                        }
+
+                        else if (d.palette == "amber") {
+                            return "#efad55";
+                        }
+
+                        else if (d.palette == "daiquiri") {
+                            return "#c9d77e";
+                        }
+
+                        else if (d.palette == "chartreuse") {
+                            return "#b5bf50";
+                        }
+                        else if (d.palette == "titanite") {
+                            return "#8fab3a";
+                        }
+                        else if (d.palette == "lime") {
+                            return "#60843c";
+                        }
+                        else if (d.palette == "tea") {
+                            return "#00723b";
+                        }
+                        else if (d.palette == "spring") {
+                            return "#6dce87";
+                        }
+                        else if (d.palette == "irish") {
+                            return "#45be76";
+                        }
+                        else if (d.palette == "biscay") {
+                            return "#56c7aa";
+                        }
+                        else if (d.palette == "holly") {
+                            return "#0b9e76";
+                        }
+                        else if (d.palette == "bosphorus") {
+                            return "#007558";
+                        }
+                        else if (d.palette == "coral") {
+                            return "#007558";
+                        }
+                        else if (d.palette == "emberglow") {
+                            return "#ea6759";
+                        }
+                        else if (d.palette == "cayenne") {
+                            return "#e04951";
+                        }
+
+                        else if (d.palette == "peach") {
+                            return "#f97272";
+                        }
+                        else if (d.palette == "hibiacus") {
+                            return "#de3848";
+                        }
+                        else if (d.palette == "vanila") {
+                            return "#f4e1c1";
+                        }
+                        else if (d.palette == "sunkiss") {
+                            return "#ebd1bb";
+                        }
+                        else if (d.palette == "fleece") {
+                            return "#f2d1a0";
+                        }
+                        else if (d.palette == "jojoba") {
+                            return "#dabe81";
+                        }
+                        else if (d.palette == "desert") {
+                            return "#e0b589";
+                        }
+                        
+                    })
+                    .attr("id", function(d) {
+                        return d.palette;
+
+                    })
+
+                    .attr("x", rectPosition)
+                    .attr("y", "100")
+                    .attr("x", "100")
+                    .attr("height", 100)
+                    .attr("width", 100)
+                    .transition().duration(1000)
+                    ;
+
+
+        
+                    
+
+                    // Updating Rect
+                    rects
+                    .transition().duration (1000)
+                    .attr("x", rectPosition)
+                    .atrr("y", "100");
+
+                    //Existing Rect
+                    rects.exit()
+                        .transition().duration(1000)
+                        .remove();
+
+
+                }
+
+
+        </script>
+  </body>
+</html>
