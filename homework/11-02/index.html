@@ -25,15 +25,15 @@
     <script>
 
       var url = "https://whiteboard.datawheel.us/api/google-analytics/realtime/random";
-      var frequency = 1 * 1000;
+      var frequency = 2 * 1000;
       var margin = {
-        top: 20,
-        right: 20,
-        bottom: 50,
-        left: 40
+        top: 200,
+        right: 80,
+        bottom: 200,
+        left: 80
       };
 
-      var dataMax = 5;
+      var dataMax = 7;
       var data = [];
 
       var width = window.innerWidth;
@@ -130,7 +130,7 @@
             .attr("x", function(d, i) {
               return x(i + 1);
             })
-            .transition().duration(frequency / 3)
+            .transition().duration(frequency / 2)
               .attr("height", function(d) {
                 return barHeight(d.users);
               })
@@ -139,7 +139,7 @@
               });
 
           // Bar "update" events and animation
-          bars.transition().duration(frequency / 3)
+          bars.transition().duration(frequency / 2)
             .attr("height", function(d) {
               return barHeight(d.users);
             })
@@ -153,7 +153,7 @@
 
           // Bar "exit" events and animation
           bars.exit()
-            .transition().duration(frequency / 3)
+            .transition().duration(frequency / 2)
             .call(zeroState)
             .remove();
 
