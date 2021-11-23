@@ -1,6 +1,6 @@
 var bannerimg = "bannerimg.jpeg";
 
-d3.json(url, function(error, data) {
+d3.json("url", function(error, data) {
 
   if (!error) {
     d3.select("#banner")

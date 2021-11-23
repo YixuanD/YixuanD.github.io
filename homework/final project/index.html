@@ -27,7 +27,11 @@
     <div class="section">
       <p>The first bar chart will show the artists work from different time period.</p>
       <svg id="chart1"></svg>
-    </div>
+  
+  </div>
+  
+
+
 
     <div class="section">
       <svg id="chart2"></svg>
@@ -36,7 +40,7 @@
 
     <div class="section">
       <p>This Bubble chart might shown the artist name, different time period, genres and nationality.</p>
-      <svg id="chart1"></svg>
+      <svg id="chart3"></svg>
     </div>
     
 
@@ -47,6 +51,14 @@
 
     <script src="banner.js"></script>
     <script src="chart1.js"></script>
+    <script src="chart2.js"></script>
+    <script src="chart3.js"></script>
+
+    <script>        
+      d3.csv("artists.csv", function(error, data) {
+          console.log(data);
+        });
+      </script>
 
   </body>
 </html>

@@ -33,7 +33,7 @@ body {
   .section svg {
     border: 1px solid blue;
     flex: 2;
-    height: 300px;
+    height: 500px;
     margin: 20px;
   }
   
@@ -55,6 +55,8 @@ body {
     padding: 5px;
     position: absolute;
   }
+
+
   
   
   
