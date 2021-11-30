@@ -28,19 +28,12 @@
       <p>The first bar chart will show the artists work from different time period.</p>
       <svg id="chart1"></svg>
   
-  </div>
-  
-
+    </div>
 
 
     <div class="section">
       <svg id="chart2"></svg>
-      <p>The second bar chart will show the artworks genres and artists nationality. </p>
-    </div>
-
-    <div class="section">
-      <p>This Bubble chart might shown the artist name, different time period, genres and nationality.</p>
-      <svg id="chart3"></svg>
+      <p>This Bubble chart might shown the artists'nationality and painting genres.</p>
     </div>
     
 
@@ -52,13 +45,70 @@
     <script src="banner.js"></script>
     <script src="chart1.js"></script>
     <script src="chart2.js"></script>
-    <script src="chart3.js"></script>
+  
 
-    <script>        
-      d3.csv("artists.csv", function(error, data) {
-          console.log(data);
-        });
-    </script>
+    <script>
+
+
+      // set the dimensions and margins of the graph
+      var margin = {top: 40, right: 90, bottom: 30, left: 160},
+          width = 920 - margin.left - margin.right,
+          height = 650 - margin.top - margin.bottom;
+      
+      // append the svg object to the body of the page
+      var svg = d3.select("#chart1")
+        .append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+      
+      // Parse the Data
+      d3.csv("artists.csv", function(data) {
+      
+        // Add X axis
+        var x = d3.scaleLinear()
+          .domain([0, 1000])
+          .range([ 0, width]);
+        svg.append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x))
+          .selectAll("text")
+            .attr("transform", "translate(-10,0)rotate(-45)")
+            .style("text-anchor", "end");
+
+            // Y axis
+  var y = d3.scaleBand()
+    .range([ 0, height ])
+    .domain(data.map(function(d) { return d.name; }))
+    .padding(.1);
+  svg.append("g")
+    .call(d3.axisLeft(y))
+
+  //Bars
+  svg.selectAll("myRect")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("x", x(0) )
+    .attr("y", function(d) { return y(d.name); })
+    .attr("width", function(d) { return x(d.paintings); })
+    .attr("height", y.bandwidth() )
+    .attr("fill", "#97d8c4")
+
+
+    // .attr("x", function(d) { return x(d.paintings); })
+    // .attr("y", function(d) { return y(d.name); })
+    // .attr("width", x.bandwidth())
+    // .attr("height", function(d) { return height - y(d.name); })
+    // .attr("fill", "#97d8c4")
+
+})
+
+</script>
+
+
 
   </body>
 </html>
