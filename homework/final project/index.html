@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <title>Best artworks of all time</title>
+    <!-- Load color scale -->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <link rel="stylesheet" href="styles.css" />
     <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
   </head>
@@ -25,7 +27,7 @@
     </div>
 
     <div class="section">
-      <p>The first bar chart will show the artists work from different time period.</p>
+      <p>The first bar chart shows the top 50 artists' names and their numbers of best and famous artworks. As we can see, Vicent van Gogh has the most famous art pieces. (Dutch: [ˈvɪnsɛnt ˈʋɪləm vɑŋ ˈɣɔx]; 30 March 1853 – 29 July 1890) He was a Dutch Post-Impressionist painter who is among the most famous and influential figures in the history of Western art. In just over a decade, he created about 2,100 artworks, including around 860 oil paintings in the last two years of his life. They include landscapes, still-lifes, portraits, and self-portraits and are characterized by bold colors and dramatic, impulsive and expressive brushwork that contributed to the foundations of modern art. However, he was not commercially successful, and his suicide at 37 followed years of mental illness and poverty.)</p>
       <svg id="chart1"></svg>
   
     </div>
@@ -33,7 +35,7 @@
 
     <div class="section">
       <svg id="chart2"></svg>
-      <p>This Bubble chart might shown the artists'nationality and painting genres.</p>
+      <p>The second lollipop chart shows the genre and painting through time.  We could see the Post-Impressionism has the most painting works. Post-Impressionists extended Impressionism while rejecting its limitations: they continued using vivid colors, often the thick application of paint and real-life subject matter, but was more inclined to emphasize geometric forms, distort form for expressive effect, and use unnatural or arbitrary color.</p>
     </div>
     
 
@@ -48,65 +50,149 @@
   
 
     <script>
-
-
-      // set the dimensions and margins of the graph
-      var margin = {top: 40, right: 90, bottom: 30, left: 160},
-          width = 920 - margin.left - margin.right,
-          height = 650 - margin.top - margin.bottom;
+    // set the dimensions and margins of the graph
+      var margin = {top: 40, right: 40, bottom: 30, left: 110},
+          width = 700 - margin.left - margin.right,
+          height = 550 - margin.top - margin.bottom;
       
-      // append the svg object to the body of the page
+    // append the svg object to the body of the page
       var svg = d3.select("#chart1")
-        .append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
-        .append("g")
+          .append("g")
           .attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")");
       
-      // Parse the Data
+    // Parse the Data
       d3.csv("artists.csv", function(data) {
       
-        // Add X axis
-        var x = d3.scaleLinear()
-          .domain([0, 1000])
-          .range([ 0, width]);
-        svg.append("g")
-          .attr("transform", "translate(0," + height + ")")
-          .call(d3.axisBottom(x))
-          .selectAll("text")
-            .attr("transform", "translate(-10,0)rotate(-45)")
-            .style("text-anchor", "end");
+    // X axis
+      var x = d3.scaleBand()
+        .range([ 0, 710 ])
+        .domain(data.map(function(d) { return d.name; }))
+        .padding(0.2);
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+          .attr("transform", "translate(-10,0)rotate(-45)")
+          .style("text-anchor", "end");
+      
+    // Add Y axis
+      var y = d3.scaleLinear()
+        .domain([0, 1000])
+        .range([ height, 0]);
+      svg.append("g")
+        .call(d3.axisLeft(y));
+      
+    // Bars
+      svg.selectAll("mybar")
+        .data(data)
+        .enter()
+        .append("rect")
+          .attr("x", function(d) { return x(d.name); })
+          .attr("width", x.bandwidth())
+          .attr("fill", "#70e000")
+          // no bar at the beginning thus:
+          .attr("height", function(d) { return height - y(0); }) // always equal to 0
+          .attr("y", function(d) { return y(0); })
+      
+    // Animation
+      svg.selectAll("rect")
+        .transition()
+        .duration(800)
+        .attr("y", function(d) { return y(d.paintings); })
+        .attr("height", function(d) { return height - y(d.paintings); })
+        .delay(function(d,i){console.log(i) ; return(i*100)})
+      
+      })
+      
+      
+    </script>
+      
+    <script>
+      
+    // set the dimensions and margins of the graph
+      var margin2 = {top: 30, right: 30, bottom: 40, left: 200},
+          width2 = 460 - margin2.left - margin2.right,
+          height2 = 500 - margin2.top - margin2.bottom;
+      
+    // append the svg2 object to the body of the page
+      var svg2 = d3.select("#chart2")
+          .attr("width", width2 + margin2.left + margin2.right)
+          .attr("height", height2 + margin2.top + margin2.bottom)
+          .append("g")
+          .attr("transform",
+                "translate(" + margin2.left + "," + margin2.top + ")");
+      
+    // Parse the Data
+      d3.csv("artists.csv", function(data) {
+      
+    // sort data
+      data.sort(function(b, a) {
+        return a.genre - b.paintings;
+      });
+      
+    // Add X2 axis
+      var x2 = d3.scaleLinear()
+        .domain([0, 1000])
+        .range([ 0, width]);
+      svg2.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x2))
+        .selectAll("text")
+        .attr("transform", "translate(-10,0)rotate(-45)")
+        .style("text-anchor", "end");
+      
+    // Y2 axis
+      var y2 = d3.scaleBand()
+        .range([ 0, height ])
+        .domain(data.map(function(d) { return d.genre; }))
+        .padding(1);
+      svg2.append("g")
+        .call(d3.axisLeft(y2))
+      
+    // Lines
+      svg2.selectAll("myline")
+        .data(data)
+        .enter()
+        .append("line")
+        .attr("x1", x2(0))
+        .attr("x2", x2(0))
+        .attr("y1", function(d) { return y2(d.genre); })
+        .attr("y2", function(d) { return y2(d.genre); })
+        .attr("stroke", "#ff6d00")
+      
+    // Circles -> start at X2=0
+      svg2.selectAll("mycircle")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", x2(0) )
+        .attr("cy", function(d) { return y2(d.genre); })
+        .attr("r", "7")
+        .style("fill", "#ff6d00")
+        .attr("stroke", "black")
+      
+    // Change the X2 coordinates of line and circle
+      svg2.selectAll("circle")
+        .transition()
+        .duration(2000)
+        .attr("cx", function(d) { return x2(d.paintings); })
+      
+      svg2.selectAll("line")
+        .transition()
+        .duration(2000)
+        .attr("x1", function(d) { return x2(d.paintings); })
+      
+      })
+            
+            
+    </script>
 
-            // Y axis
-  var y = d3.scaleBand()
-    .range([ 0, height ])
-    .domain(data.map(function(d) { return d.name; }))
-    .padding(.1);
-  svg.append("g")
-    .call(d3.axisLeft(y))
-
-  //Bars
-  svg.selectAll("myRect")
-    .data(data)
-    .enter()
-    .append("rect")
-    .attr("x", x(0) )
-    .attr("y", function(d) { return y(d.name); })
-    .attr("width", function(d) { return x(d.paintings); })
-    .attr("height", y.bandwidth() )
-    .attr("fill", "#97d8c4")
 
 
-    // .attr("x", function(d) { return x(d.paintings); })
-    // .attr("y", function(d) { return y(d.name); })
-    // .attr("width", x.bandwidth())
-    // .attr("height", function(d) { return height - y(d.name); })
-    // .attr("fill", "#97d8c4")
 
-})
-
-</script>
 
 
 

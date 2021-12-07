@@ -20,6 +20,7 @@ body {
   .section {
     align-items: center;
     display: flex;
+    color: blue;
     padding: 50px;
     font-family: 'Mukta', sans-serif;
   }
@@ -31,7 +32,6 @@ body {
   }
   
   .section svg {
-    border: 1px solid blue;
     flex: 2;
     height: 700px;
     margin: 20px;
@@ -55,7 +55,6 @@ body {
     padding: 5px;
     position: absolute;
   }
-
 
 
   
