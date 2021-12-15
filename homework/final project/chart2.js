@@ -6,8 +6,8 @@ d3.select("#chart2")
       .style("top", d3.event.pageY + 20 + "px")
       .style("left", d3.event.pageX + 20 + "px");
 
-    tooltip.select("#title").html("Artists:" + d.data.name);
-    tooltip.select("#value").html("paintings:" + d.data.paintings);
+    tooltip.select("#title").html("Genre:" + d.data.genre);
+    tooltip.select("#paintings").html("Paintings:" + d.data.paintings);
 
   })
 
