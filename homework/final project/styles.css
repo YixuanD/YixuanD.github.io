@@ -46,17 +46,7 @@ body {
       width: 100%;
     }
   }
-  
-  #tooltip {
-    background: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    display: none;
-    padding: 5px;
-    position: absolute;
-  }
 
 
-  
   
   

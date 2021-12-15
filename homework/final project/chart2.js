@@ -1,15 +1,16 @@
 d3.select("#chart2")
-  .on("mousemove", function() {
+  .on("mousemove", function(d) {
 
     var tooltip = d3.select("#tooltip")
       .style("display", "block")
       .style("top", d3.event.pageY + 20 + "px")
       .style("left", d3.event.pageX + 20 + "px");
 
-    tooltip.select("#title").html("Genres and Paintings ");
-    tooltip.select("#value").html("1-877");
+    tooltip.select("#title").html("Artists:" + d.data.name);
+    tooltip.select("#value").html("paintings:" + d.data.paintings);
 
   })
+
   .on("mouseout", function() {
     d3.select("#tooltip")
       .style("display", "none");
