@@ -89,10 +89,9 @@
         .call(d3.axisLeft(y));
       
       var tooltip=d3.select("#tooltip")
-      var tooltip2=d3.select("#tooltip2")
 
     // Bars
-      svg.selectAll("mybar")
+      svg.selectAll("rect")
         .data(data)
         .enter()
         .append("rect")
@@ -108,10 +107,10 @@
       
       function mousemove(d) {
         d3.select(this)
-          .attr("fill","#8e94f2")
+          .attr("fill","#55a630")
           .attr("stroke-width", "1px")
           .attr("fill-opacity", "1");
-        tooltip.style("display", "none")
+        tooltip.style("display", "block")
           .style("top", d3.event.pageY + "px")
           .style("left", d3.event.pageX + "px")
           .html(
@@ -126,7 +125,7 @@
 
       function mouseover(d) {
             d3.select(this)
-              .attr("fill","#8e94f2")
+              .attr("fill","#55a630")
               .attr("stroke-width", "1px")
               .attr("fill-opacity", "1");
             tooltip.style("opacity", 1)
@@ -138,7 +137,7 @@
               .attr("fill", "#70e000")
               .attr("stroke-width", ".3")
               .attr("fill-opacity", "1");
-            tooltip.style("opacity", 1);
+            tooltip.style("display", "none");
       }
 
 
@@ -153,11 +152,12 @@
         .delay(function(d,i){console.log(i) ; return(i*100)})
       
 
-      })
-
-              
+      })        
       
     </script>
+
+
+<!-- THIS START WITH SECOND CHART -->
       
     <script>
       
@@ -200,6 +200,8 @@
         .padding(1);
       svg2.append("g")
         .call(d3.axisLeft(y2))
+
+        var tooltip2=d3.select("#tooltip2")
       
     // Lines
       svg2.selectAll("myline")
@@ -226,53 +228,51 @@
         .on("mousemove", mousemove2)
         .on("mouseout", mouseout2);
 
-
-        function mousemove2(d) {
-        d3.select(this)
-          .attr("fill","#8e94f2")
-          .attr("stroke-width", "1px")
-          .attr("fill-opacity", "1");
-        tooltip2.style("display", "none")
-          .style("top", d3.event.pageY + "px")
-          .style("left", d3.event.pageX + "px")
-          .html(
-           "Name: <b>" +
-             d.name+
-             "</b></br>Number of paintings: <b>" +
-             d.paintings+
-             "</b>"
-          )
-             
-      }
-
-      function mouseover2(d) {
-            d3.select(this)
-              .attr("fill","#8e94f2")
-              .attr("stroke-width", "1px")
-              .attr("fill-opacity", "1");
-            tooltip2.style("opacity", 1)
-                 
-      }
-
-      function mouseout2(d) {
-            d3.select(this)
-              .attr("fill", "#70e000")
-              .attr("stroke-width", ".3")
-              .attr("fill-opacity", "1");
-            tooltip2.style("opacity", 1);
-      }
-
       
     // Change the X2 coordinates of line and circle
       svg2.selectAll("circle")
         .transition()
         .duration(2000)
         .attr("cx", function(d) { return x2(d.paintings); })
+        function mouseover2(d) {
+        d3.select(this)
+          // .attr("fill","#ffea00")
+          .attr("stroke-width", "1px")
+          .attr("fill-opacity", "1");
+          tooltip2.style("opacity", "1")
+                 
+      }
+
+        function mousemove2(d) {
+        d3.select(this)
+          // .attr("fill","#cbdfbd")
+          .attr("stroke-width", "1px")
+          .attr("fill-opacity", "1");
+        tooltip2.style("display", "block")
+          .style("top", d3.event.pageY + "px")
+          .style("left", d3.event.pageX + "px")
+          .html(
+          "Genres: <b>" +
+             d.genre+
+             "</b></br>Number of paintings: <b>" +
+             d.paintings+
+             "</b>"
+          )
+             }
+
+        function mouseout2(d) {
+        d3.select(this)
+          // .attr("fill", "#e0afa0")
+          .attr("stroke-width", ".3")
+          .attr("fill-opacity", "1");
+          tooltip2.style("opacity", "0");
+      }
       
       svg2.selectAll("line")
         .transition()
         .duration(2000)
         .attr("x1", function(d) { return x2(d.paintings); })
+
       
       })
             
